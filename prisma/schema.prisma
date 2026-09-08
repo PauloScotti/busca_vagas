@@ -1,0 +1,57 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Job {
+  id          String    @id @default(cuid())
+  source      String
+  externalId  String
+  fingerprint String
+  title       String
+  company     String
+  location    String?
+  remote      Boolean   @default(false)
+  url         String
+  description String
+  tags        String[]
+  salaryMin   Int?
+  salaryMax   Int?
+  publishedAt DateTime?
+  collectedAt DateTime  @default(now())
+  matches     Match[]
+
+  @@unique([source, externalId])
+  @@index([fingerprint])
+  @@index([publishedAt])
+}
+
+model Profile {
+  id              String   @id @default(cuid())
+  name            String
+  skills          String[]
+  yearsExperience Int
+  seniority       String
+  preferences     String   @default("")
+  updatedAt       DateTime @updatedAt
+  matches         Match[]
+}
+
+model Match {
+  id        String   @id @default(cuid())
+  jobId     String
+  job       Job      @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  profileId String
+  profile   Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  score     Int
+  reasons   String[]
+  scoredAt   DateTime  @default(now())
+  notifiedAt DateTime?
+
+  @@unique([jobId, profileId])
+  @@index([score])
+}

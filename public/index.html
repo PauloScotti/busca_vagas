@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Busca Vagas</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>🔎 Busca Vagas</h1>
+    <nav class="tabs">
+      <button class="tab-btn active" data-tab="vagas">Vagas</button>
+      <button class="tab-btn" data-tab="matches">Matches</button>
+      <button class="tab-btn" data-tab="perfil">Perfil</button>
+      <button class="tab-btn" data-tab="digest">Digest</button>
+    </nav>
+  </header>
+
+  <main>
+    <div id="toast" class="toast" hidden></div>
+
+    <!-- VAGAS -->
+    <section id="tab-vagas" class="tab-panel">
+      <div class="panel-header">
+        <form id="jobs-filter" class="filters">
+          <input type="text" name="q" placeholder="Buscar por título ou empresa..." maxlength="100" />
+          <select name="source">
+            <option value="">Todas as fontes</option>
+            <option value="remotive">Remotive</option>
+            <option value="gupy">Gupy</option>
+          </select>
+          <select name="remote">
+            <option value="">Remoto: qualquer</option>
+            <option value="true">Somente remoto</option>
+            <option value="false">Somente presencial</option>
+          </select>
+          <button type="submit">Filtrar</button>
+        </form>
+        <button id="btn-collect" class="btn-primary">↻ Coletar vagas</button>
+      </div>
+
+      <div id="jobs-list" class="card-list"></div>
+      <div id="jobs-pagination" class="pagination"></div>
+    </section>
+
+    <!-- MATCHES -->
+    <section id="tab-matches" class="tab-panel" hidden>
+      <div class="panel-header">
+        <form id="matches-filter" class="filters">
+          <label>
+            Score mínimo
+            <input type="number" name="minScore" value="60" min="0" max="100" />
+          </label>
+          <button type="submit">Filtrar</button>
+        </form>
+        <button id="btn-run-matching" class="btn-primary">▶ Rodar matching</button>
+      </div>
+
+      <div id="matches-list" class="card-list"></div>
+      <div id="matches-pagination" class="pagination"></div>
+    </section>
+
+    <!-- PERFIL -->
+    <section id="tab-perfil" class="tab-panel" hidden>
+      <form id="profile-form" class="profile-form">
+        <label>
+          Nome
+          <input type="text" name="name" required maxlength="100" />
+        </label>
+        <label>
+          Skills (separadas por vírgula)
+          <input type="text" name="skills" required placeholder="nestjs, typescript, react" />
+        </label>
+        <div class="row">
+          <label>
+            Anos de experiência
+            <input type="number" name="yearsExperience" required min="0" max="60" />
+          </label>
+          <label>
+            Senioridade
+            <select name="seniority" required>
+              <option value="junior">Júnior</option>
+              <option value="pleno">Pleno</option>
+              <option value="senior">Sênior</option>
+              <option value="staff">Staff</option>
+            </select>
+          </label>
+        </div>
+        <label>
+          Preferências
+          <textarea name="preferences" maxlength="1000" rows="4" placeholder="Ex: prefiro remoto, evitar plantão..."></textarea>
+        </label>
+        <button type="submit" class="btn-primary">Salvar perfil</button>
+      </form>
+    </section>
+
+    <!-- DIGEST -->
+    <section id="tab-digest" class="tab-panel" hidden>
+      <div class="digest-box">
+        <p>Envia manualmente para o Telegram os matches novos (ainda não notificados) com score acima do limite configurado no servidor.</p>
+        <button id="btn-send-digest" class="btn-primary">✉ Enviar digest agora</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>
