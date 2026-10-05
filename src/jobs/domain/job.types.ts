@@ -11,7 +11,7 @@ export const NormalizedJobSchema = z.object({
   company: z.string().min(1),
   location: z.string().nullable(),
   remote: z.boolean(),
-  url: z.url(),
+  url: z.url({ protocol: /^https?$/ }),
   description: z.string(),
   tags: z.array(z.string()),
   salaryMin: z.number().int().nullable(),

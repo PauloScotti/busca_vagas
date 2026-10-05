@@ -1,5 +1,14 @@
 import { z } from 'zod';
 
+// Slug de board/empresa nos ATSs: começa com alfanumérico (bloqueia '.'/'..' no path) e não tem / ? # nem espaços.
+export const BoardSlugSchema = z.string().regex(/^[A-Za-z0-9][A-Za-z0-9._-]{0,99}$/, 'slug inválido');
+
+const boardList = z
+  .string()
+  .default('')
+  .transform((v) => [...new Set(v.split(',').map((t) => t.trim()).filter(Boolean))])
+  .pipe(z.array(BoardSlugSchema).max(200));
+
 export const envSchema = z.object({
   DATABASE_URL: z.url(),
   PORT: z.coerce.number().int().positive().default(3000),
@@ -14,6 +23,9 @@ export const envSchema = z.object({
     .string()
     .default('nestjs,react,node')
     .transform((v) => v.split(',').map((t) => t.trim()).filter(Boolean)),
+  GREENHOUSE_BOARDS: boardList,
+  LEVER_COMPANIES: boardList,
+  ASHBY_BOARDS: boardList,
 });
 
 export type Env = z.infer<typeof envSchema>;

@@ -29,6 +29,12 @@ Em dev, o Vite repassa `/api/*` para a API em `http://localhost:3000` (mude com 
 ## Fontes
 - Remotive (API pública oficial)
 - Gupy (endpoint público não documentado — valide o shape do payload na primeira coleta; o coletor descarta itens que não passem no schema zod em vez de quebrar)
+- Greenhouse, Lever e Ashby (APIs públicas de job board, por empresa). Configure os slugs separados por vírgula:
+  - `GREENHOUSE_BOARDS` — o `<slug>` de `boards.greenhouse.io/<slug>` (ex.: `gitlab,nubank`)
+  - `LEVER_COMPANIES` — o `<slug>` de `jobs.lever.co/<slug>` (ex.: `spotify`)
+  - `ASHBY_BOARDS` — o `<slug>` de `jobs.ashbyhq.com/<slug>` (ex.: `ramp,linear`)
+
+  Esses endpoints não têm busca: o board inteiro é baixado (até 4 em paralelo, timeout de 15s) e só ficam as vagas cujo título/descrição contém algum termo de `SEARCH_TERMS` como palavra inteira. Board inexistente (404) é só logado. Lever e Ashby não informam o nome da empresa, então o slug é usado. Salário só é preenchido quando a faixa é anual (sem moeda — o schema ainda não guarda).
 
 ## Matching
 1. `PUT /profile` — skills, anos de experiência, senioridade, preferências
@@ -40,5 +46,8 @@ Requer `ANTHROPIC_API_KEY` no `.env`. Sem chave, coleta e listagem funcionam; s�
 ## Digest Telegram
 Crie um bot com o @BotFather, pegue o token e o chat_id (mande uma mensagem ao bot e leia `getUpdates`). Configure `TELEGRAM_BOT_TOKEN` e `TELEGRAM_CHAT_ID`. Só matches novos (nunca notificados) com score >= `DIGEST_MIN_SCORE` entram, limitados a `DIGEST_LIMIT`. Teste manual: `POST /digest/send`.
 
-## Próximos passos
-1. Coletores Greenhouse/Lever/Ashby por lista de empresas
+## Testes
+```bash
+npm test           # unitários (src/**/*.spec.ts)
+npm run test:e2e   # e2e (test/*.e2e-spec.ts) — sobe o JobsModule com Prisma em memória e APIs externas simuladas
+```
