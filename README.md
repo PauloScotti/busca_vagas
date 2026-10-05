@@ -1,8 +1,10 @@
 # Busca Vagas
 
-Coletor e API de vagas compatíveis com stack/experiência. NestJS 11 + Prisma 7 (driver adapter pg) + zod 4 + Swagger/Scalar.
+Coletor e API de vagas compatíveis com stack/experiência. NestJS 12 + Prisma 7 (driver adapter pg) + zod 4 + Swagger/Scalar.
 
 ## Setup
+Requer Node.js 24.9+ (os pacotes do Nest 12 são ESM-only e o app, CommonJS, os carrega via `require(esm)`; o Jest precisa de `--experimental-vm-modules`, já embutido nos scripts `test`/`test:e2e`).
+
 ```bash
 cp .env.example .env   # ajuste DATABASE_URL
 npm install            # roda prisma generate via postinstall
