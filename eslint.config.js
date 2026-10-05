@@ -4,8 +4,7 @@ import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
 export default defineConfig(
-  // public/ é o front HTML antigo, que a API não serve mais (o atual fica em web/, com oxlint próprio)
-  { ignores: ['dist/', 'src/generated/', 'web/', 'public/', 'node_modules/'] },
+  { ignores: ['dist/', 'src/generated/', 'web/', 'node_modules/'] },
   js.configs.recommended,
   tseslint.configs.recommendedTypeChecked,
   {
