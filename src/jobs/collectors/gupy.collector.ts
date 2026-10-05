@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { z } from 'zod';
-import { JobCollector } from './collector.interface';
-import { NormalizedJob, NormalizedJobSchema } from '../domain/job.types';
+import { JobCollector } from './collector.interface.js';
+import { NormalizedJob, NormalizedJobSchema } from '../domain/job.types.js';
 
 const GupyJobSchema = z.object({
   id: z.union([z.string(), z.number()]),

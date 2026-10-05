@@ -1,4 +1,4 @@
-import { parseLlmScores } from './score-parser';
+import { parseLlmScores } from './score-parser.js';
 
 describe('parseLlmScores', () => {
   it('parseia array JSON puro', () => {

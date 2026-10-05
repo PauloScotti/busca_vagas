@@ -1,7 +1,7 @@
 import { Controller, Get, HttpCode, Post, Query } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { MatchingService } from './matching.service';
-import { ListMatchesQueryDto } from './matching.dto';
+import { MatchingService } from './matching.service.js';
+import { ListMatchesQueryDto } from './matching.dto.js';
 
 @ApiTags('matches')
 @Controller('matches')

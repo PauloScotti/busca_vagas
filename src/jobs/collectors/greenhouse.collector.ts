@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { z } from 'zod';
-import { CompanyBoardCollector } from './company-board.collector';
-import { NormalizedJob, NormalizedJobSchema } from '../domain/job.types';
-import { htmlToText, isRemoteLocation } from '../domain/text';
-import { Env } from '../../config/env';
+import { CompanyBoardCollector } from './company-board.collector.js';
+import { NormalizedJob, NormalizedJobSchema } from '../domain/job.types.js';
+import { htmlToText, isRemoteLocation } from '../domain/text.js';
+import { Env } from '../../config/env.js';
 
 const GreenhouseJobSchema = z.object({
   id: z.union([z.number(), z.string()]),

@@ -1,8 +1,9 @@
+import { jest } from '@jest/globals';
 import { Logger } from '@nestjs/common';
-import { GreenhouseCollector } from './greenhouse.collector';
-import { LeverCollector } from './lever.collector';
-import { AshbyCollector } from './ashby.collector';
-import { fakeConfig, jsonResponse } from './test-helpers';
+import { GreenhouseCollector } from './greenhouse.collector.js';
+import { LeverCollector } from './lever.collector.js';
+import { AshbyCollector } from './ashby.collector.js';
+import { fakeConfig, jsonResponse } from './test-helpers.js';
 
 const ghJob = (id: number, title: string, content = '') => ({
   id,
@@ -12,7 +13,7 @@ const ghJob = (id: number, title: string, content = '') => ({
 });
 
 describe('CompanyBoardCollector.collect', () => {
-  let fetchMock: jest.SpyInstance;
+  let fetchMock: jest.Spied<typeof fetch>;
 
   beforeEach(() => {
     fetchMock = jest.spyOn(global, 'fetch');
@@ -48,7 +49,8 @@ describe('CompanyBoardCollector.collect', () => {
   });
 
   it('isola falhas por board: status de erro, JSON inesperado e exceção de rede', async () => {
-    fetchMock.mockImplementation(async (url: string) => {
+    fetchMock.mockImplementation(async (input) => {
+      const url = String(input);
       if (url.includes('/down')) return jsonResponse({ ok: false }, 404);
       if (url.includes('/weird')) return jsonResponse({ not: 'an array' });
       if (url.includes('/boom')) throw new Error('ECONNRESET');

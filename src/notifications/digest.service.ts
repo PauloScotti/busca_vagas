@@ -1,8 +1,8 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { PrismaService } from '../prisma/prisma.service';
-import { TelegramService, escapeHtml } from './telegram.service';
-import { Env } from '../config/env';
+import { PrismaService } from '../prisma/prisma.service.js';
+import { TelegramService, escapeHtml } from './telegram.service.js';
+import { Env } from '../config/env.js';
 
 interface DigestMatch {
   id: string;

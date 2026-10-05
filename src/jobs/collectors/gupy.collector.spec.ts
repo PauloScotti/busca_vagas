@@ -1,4 +1,4 @@
-import { GupyCollector } from './gupy.collector';
+import { GupyCollector } from './gupy.collector.js';
 
 describe('GupyCollector.normalize', () => {
   const collector = new GupyCollector();

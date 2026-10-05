@@ -1,7 +1,7 @@
 import { Logger } from '@nestjs/common';
-import { JobCollector } from './collector.interface';
-import { JobSource, NormalizedJob } from '../domain/job.types';
-import { matchesAnyTerm } from '../domain/text';
+import { JobCollector } from './collector.interface.js';
+import { JobSource, NormalizedJob } from '../domain/job.types.js';
+import { matchesAnyTerm } from '../domain/text.js';
 
 const FETCH_TIMEOUT_MS = 15_000;
 const MAX_CONCURRENT_BOARDS = 4;

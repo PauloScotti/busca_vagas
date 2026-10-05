@@ -20,7 +20,7 @@ const config: runtime.GetPrismaClientConfig = {
   "clientVersion": "7.10.0",
   "engineVersion": "0edf323efd1d98336f3f0a68684b56f689b900d3",
   "activeProvider": "postgresql",
-  "inlineSchema": "generator client {\n  provider = \"prisma-client\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel Job {\n  id          String    @id @default(cuid())\n  source      String\n  externalId  String\n  fingerprint String\n  title       String\n  company     String\n  location    String?\n  remote      Boolean   @default(false)\n  url         String\n  description String\n  tags        String[]\n  salaryMin   Int?\n  salaryMax   Int?\n  publishedAt DateTime?\n  collectedAt DateTime  @default(now())\n  matches     Match[]\n\n  @@unique([source, externalId])\n  @@index([fingerprint])\n  @@index([publishedAt])\n}\n\nmodel Profile {\n  id              String   @id @default(cuid())\n  name            String\n  skills          String[]\n  yearsExperience Int\n  seniority       String\n  preferences     String   @default(\"\")\n  updatedAt       DateTime @updatedAt\n  matches         Match[]\n}\n\nmodel Match {\n  id         String    @id @default(cuid())\n  jobId      String\n  job        Job       @relation(fields: [jobId], references: [id], onDelete: Cascade)\n  profileId  String\n  profile    Profile   @relation(fields: [profileId], references: [id], onDelete: Cascade)\n  score      Int\n  reasons    String[]\n  scoredAt   DateTime  @default(now())\n  notifiedAt DateTime?\n\n  @@unique([jobId, profileId])\n  @@index([score])\n}\n",
+  "inlineSchema": "generator client {\n  provider     = \"prisma-client\"\n  output       = \"../src/generated/prisma\"\n  moduleFormat = \"esm\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel Job {\n  id          String    @id @default(cuid())\n  source      String\n  externalId  String\n  fingerprint String\n  title       String\n  company     String\n  location    String?\n  remote      Boolean   @default(false)\n  url         String\n  description String\n  tags        String[]\n  salaryMin   Int?\n  salaryMax   Int?\n  publishedAt DateTime?\n  collectedAt DateTime  @default(now())\n  matches     Match[]\n\n  @@unique([source, externalId])\n  @@index([fingerprint])\n  @@index([publishedAt])\n}\n\nmodel Profile {\n  id              String   @id @default(cuid())\n  name            String\n  skills          String[]\n  yearsExperience Int\n  seniority       String\n  preferences     String   @default(\"\")\n  updatedAt       DateTime @updatedAt\n  matches         Match[]\n}\n\nmodel Match {\n  id         String    @id @default(cuid())\n  jobId      String\n  job        Job       @relation(fields: [jobId], references: [id], onDelete: Cascade)\n  profileId  String\n  profile    Profile   @relation(fields: [profileId], references: [id], onDelete: Cascade)\n  score      Int\n  reasons    String[]\n  scoredAt   DateTime  @default(now())\n  notifiedAt DateTime?\n\n  @@unique([jobId, profileId])\n  @@index([score])\n}\n",
   "runtimeDataModel": {
     "models": {},
     "enums": {},
@@ -45,10 +45,10 @@ async function decodeBase64AsWasm(wasmBase64: string): Promise<WebAssembly.Modul
 }
 
 config.compilerWasm = {
-  getRuntime: async () => await import("@prisma/client/runtime/query_compiler_fast_bg.postgresql.js"),
+  getRuntime: async () => await import("@prisma/client/runtime/query_compiler_fast_bg.postgresql.mjs"),
 
   getQueryCompilerWasmModule: async () => {
-    const { wasm } = await import("@prisma/client/runtime/query_compiler_fast_bg.postgresql.wasm-base64.js")
+    const { wasm } = await import("@prisma/client/runtime/query_compiler_fast_bg.postgresql.wasm-base64.mjs")
     return await decodeBase64AsWasm(wasm)
   },
 

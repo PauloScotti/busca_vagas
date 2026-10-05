@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { z } from 'zod';
-import { CompanyBoardCollector, toIntOrNull } from './company-board.collector';
-import { NormalizedJob, NormalizedJobSchema } from '../domain/job.types';
-import { isRemoteLocation } from '../domain/text';
-import { Env } from '../../config/env';
+import { CompanyBoardCollector, toIntOrNull } from './company-board.collector.js';
+import { NormalizedJob, NormalizedJobSchema } from '../domain/job.types.js';
+import { isRemoteLocation } from '../domain/text.js';
+import { Env } from '../../config/env.js';
 
 const LeverPostingSchema = z.object({
   id: z.string(),

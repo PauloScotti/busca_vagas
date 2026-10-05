@@ -1,4 +1,4 @@
-import { prefilterScore } from './prefilter';
+import { prefilterScore } from './prefilter.js';
 
 const job = (over: Partial<{ title: string; description: string; tags: string[] }> = {}) => ({
   title: 'Desenvolvedor Backend Node.js',

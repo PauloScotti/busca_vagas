@@ -1,8 +1,8 @@
 import { Injectable, ServiceUnavailableException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { z } from 'zod';
-import { LlmProvider } from './llm.provider';
-import { Env } from '../config/env';
+import { LlmProvider } from './llm.provider.js';
+import { Env } from '../config/env.js';
 
 const AnthropicResponseSchema = z.object({
   content: z.array(z.object({ type: z.string(), text: z.string().optional() })),

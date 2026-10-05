@@ -1,6 +1,6 @@
 import { createZodDto } from 'nestjs-zod';
 import { z } from 'zod';
-import { JobSourceSchema } from './domain/job.types';
+import { JobSourceSchema } from './domain/job.types.js';
 
 const ListJobsQuerySchema = z.object({
   source: JobSourceSchema.optional(),

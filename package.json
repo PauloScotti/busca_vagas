@@ -2,6 +2,7 @@
   "name": "busca-vagas",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "build": "nest build",
     "start": "node dist/main.js",
@@ -29,6 +30,7 @@
     "zod": "4.5.4"
   },
   "devDependencies": {
+    "@jest/globals": "30.5.2",
     "@nestjs/cli": "12.0.8",
     "@nestjs/testing": "12.1.2",
     "@types/jest": "30.0.0",
@@ -48,7 +50,12 @@
     "rootDir": "src",
     "testRegex": ".*\\.spec\\.ts$",
     "transform": {
-      "^.+\\.ts$": "ts-jest"
+      "^.+\\.ts$": [
+        "ts-jest",
+        {
+          "useESM": true
+        }
+      ]
     },
     "testEnvironment": "node",
     "testPathIgnorePatterns": [
@@ -56,7 +63,10 @@
     ],
     "moduleNameMapper": {
       "^(\\.{1,2}/.*)\\.js$": "$1"
-    }
+    },
+    "extensionsToTreatAsEsm": [
+      ".ts"
+    ]
   },
   "overrides": {
     "nestjs-zod": {

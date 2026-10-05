@@ -1,8 +1,8 @@
 import { BadRequestException, Inject, Injectable, Logger } from '@nestjs/common';
-import { PrismaService } from '../prisma/prisma.service';
-import { LlmProvider, LLM_PROVIDER } from '../llm/llm.provider';
-import { prefilterScore } from './prefilter';
-import { parseLlmScores } from './score-parser';
+import { PrismaService } from '../prisma/prisma.service.js';
+import { LlmProvider, LLM_PROVIDER } from '../llm/llm.provider.js';
+import { prefilterScore } from './prefilter.js';
+import { parseLlmScores } from './score-parser.js';
 
 const LLM_BATCH_SIZE = 8;
 const MAX_LLM_JOBS_PER_RUN = 32;

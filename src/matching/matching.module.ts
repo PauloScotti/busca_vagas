@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { LlmModule } from '../llm/llm.module';
-import { MatchingController } from './matching.controller';
-import { MatchingService } from './matching.service';
+import { LlmModule } from '../llm/llm.module.js';
+import { MatchingController } from './matching.controller.js';
+import { MatchingService } from './matching.service.js';
 
 @Module({
   imports: [LlmModule],

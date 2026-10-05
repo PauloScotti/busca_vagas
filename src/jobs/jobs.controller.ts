@@ -1,9 +1,9 @@
 import { Body, Controller, Get, HttpCode, Post, Query } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
-import { JobsService } from './jobs.service';
-import { CollectBodyDto, ListJobsQueryDto } from './jobs.dto';
-import { Env } from '../config/env';
+import { JobsService } from './jobs.service.js';
+import { CollectBodyDto, ListJobsQueryDto } from './jobs.dto.js';
+import { Env } from '../config/env.js';
 
 @ApiTags('jobs')
 @Controller('jobs')

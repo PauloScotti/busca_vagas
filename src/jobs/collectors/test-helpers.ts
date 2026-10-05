@@ -1,5 +1,5 @@
 import { ConfigService } from '@nestjs/config';
-import { Env } from '../../config/env';
+import { Env } from '../../config/env.js';
 
 export function fakeConfig(values: Partial<Env>): ConfigService<Env, true> {
   return { getOrThrow: (key: keyof Env) => values[key] } as unknown as ConfigService<Env, true>;

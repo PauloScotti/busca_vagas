@@ -2,10 +2,10 @@ import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { SchedulerRegistry } from '@nestjs/schedule';
 import { CronJob } from 'cron';
-import { JobsService } from '../jobs/jobs.service';
-import { MatchingService } from '../matching/matching.service';
-import { DigestService } from '../notifications/digest.service';
-import { Env } from '../config/env';
+import { JobsService } from '../jobs/jobs.service.js';
+import { MatchingService } from '../matching/matching.service.js';
+import { DigestService } from '../notifications/digest.service.js';
+import { Env } from '../config/env.js';
 
 @Injectable()
 export class PipelineScheduler implements OnModuleInit {

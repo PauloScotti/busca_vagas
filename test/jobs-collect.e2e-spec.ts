@@ -1,12 +1,13 @@
+import { jest } from '@jest/globals';
 import { INestApplication, Logger } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { APP_PIPE } from '@nestjs/core';
 import { Test } from '@nestjs/testing';
 import { ZodValidationPipe } from 'nestjs-zod';
-import { validateEnv } from '../src/config/env';
-import { JobsModule } from '../src/jobs/jobs.module';
-import { PrismaModule } from '../src/prisma/prisma.module';
-import { PrismaService } from '../src/prisma/prisma.service';
+import { validateEnv } from '../src/config/env.js';
+import { JobsModule } from '../src/jobs/jobs.module.js';
+import { PrismaModule } from '../src/prisma/prisma.module.js';
+import { PrismaService } from '../src/prisma/prisma.service.js';
 
 type StoredJob = Record<string, unknown> & { source: string; externalId: string };
 

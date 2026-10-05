@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { TelegramService } from './telegram.service';
-import { DigestService } from './digest.service';
-import { DigestController } from './digest.controller';
+import { TelegramService } from './telegram.service.js';
+import { DigestService } from './digest.service.js';
+import { DigestController } from './digest.controller.js';
 
 @Module({
   controllers: [DigestController],

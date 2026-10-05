@@ -1,4 +1,4 @@
-import { envSchema } from './env';
+import { envSchema } from './env.js';
 
 const base = { DATABASE_URL: 'postgresql://u:p@localhost:5432/db' };
 

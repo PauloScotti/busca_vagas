@@ -1,4 +1,4 @@
-import { normalizeText } from '../jobs/domain/fingerprint';
+import { normalizeText } from '../jobs/domain/fingerprint.js';
 
 export interface PrefilterInput {
   title: string;

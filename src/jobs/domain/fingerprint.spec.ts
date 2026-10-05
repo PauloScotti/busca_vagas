@@ -1,4 +1,4 @@
-import { jobFingerprint, normalizeText } from './fingerprint';
+import { jobFingerprint, normalizeText } from './fingerprint.js';
 
 describe('normalizeText', () => {
   it('remove acentos, caixa e pontuação', () => {

@@ -1,4 +1,4 @@
-import { NormalizedJobSchema } from './job.types';
+import { NormalizedJobSchema } from './job.types.js';
 
 const valid = {
   source: 'greenhouse',

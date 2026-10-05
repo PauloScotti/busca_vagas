@@ -3,13 +3,13 @@ import { ConfigModule } from '@nestjs/config';
 import { ScheduleModule } from '@nestjs/schedule';
 import { APP_PIPE } from '@nestjs/core';
 import { ZodValidationPipe } from 'nestjs-zod';
-import { validateEnv } from './config/env';
-import { PrismaModule } from './prisma/prisma.module';
-import { JobsModule } from './jobs/jobs.module';
-import { ProfileModule } from './profile/profile.module';
-import { MatchingModule } from './matching/matching.module';
-import { NotificationsModule } from './notifications/notifications.module';
-import { PipelineModule } from './pipeline/pipeline.module';
+import { validateEnv } from './config/env.js';
+import { PrismaModule } from './prisma/prisma.module.js';
+import { JobsModule } from './jobs/jobs.module.js';
+import { ProfileModule } from './profile/profile.module.js';
+import { MatchingModule } from './matching/matching.module.js';
+import { NotificationsModule } from './notifications/notifications.module.js';
+import { PipelineModule } from './pipeline/pipeline.module.js';
 
 @Module({
   imports: [

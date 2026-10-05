@@ -1,8 +1,8 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
-import { PrismaService } from '../prisma/prisma.service';
-import { JobCollector, JOB_COLLECTORS } from './collectors/collector.interface';
-import { jobFingerprint } from './domain/fingerprint';
-import { NormalizedJob } from './domain/job.types';
+import { PrismaService } from '../prisma/prisma.service.js';
+import { JobCollector, JOB_COLLECTORS } from './collectors/collector.interface.js';
+import { jobFingerprint } from './domain/fingerprint.js';
+import { NormalizedJob } from './domain/job.types.js';
 
 export interface IngestResult {
   received: number;

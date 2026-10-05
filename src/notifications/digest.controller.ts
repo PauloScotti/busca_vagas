@@ -1,6 +1,6 @@
 import { Controller, HttpCode, Post } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { DigestService } from './digest.service';
+import { DigestService } from './digest.service.js';
 
 @ApiTags('digest')
 @Controller('digest')

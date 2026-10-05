@@ -1,5 +1,5 @@
-import { LeverCollector } from './lever.collector';
-import { fakeConfig } from './test-helpers';
+import { LeverCollector } from './lever.collector.js';
+import { fakeConfig } from './test-helpers.js';
 
 describe('LeverCollector.normalize', () => {
   const collector = new LeverCollector(fakeConfig({ LEVER_COMPANIES: ['spotify'] }));

@@ -1,5 +1,8 @@
-import { DigestService } from './digest.service';
-import { escapeHtml } from './telegram.service';
+import { jest } from '@jest/globals';
+import { DigestService } from './digest.service.js';
+import { escapeHtml } from './telegram.service.js';
+
+type AsyncFn = (...args: any[]) => Promise<any>;
 
 const makeMatch = (id: string, score: number, over: Record<string, unknown> = {}) => ({
   id,
@@ -22,9 +25,9 @@ describe('escapeHtml', () => {
 });
 
 describe('DigestService', () => {
-  const findMany = jest.fn();
-  const updateMany = jest.fn().mockResolvedValue({ count: 1 });
-  const send = jest.fn().mockResolvedValue(undefined);
+  const findMany = jest.fn<AsyncFn>();
+  const updateMany = jest.fn<AsyncFn>().mockResolvedValue({ count: 1 });
+  const send = jest.fn<AsyncFn>().mockResolvedValue(undefined);
   const prisma = { match: { findMany, updateMany } } as never;
   const telegram = { send } as never;
   const config = {

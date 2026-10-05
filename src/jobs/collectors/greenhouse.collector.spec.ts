@@ -1,5 +1,5 @@
-import { GreenhouseCollector } from './greenhouse.collector';
-import { fakeConfig } from './test-helpers';
+import { GreenhouseCollector } from './greenhouse.collector.js';
+import { fakeConfig } from './test-helpers.js';
 
 describe('GreenhouseCollector.normalize', () => {
   const collector = new GreenhouseCollector(fakeConfig({ GREENHOUSE_BOARDS: ['gitlab'] }));

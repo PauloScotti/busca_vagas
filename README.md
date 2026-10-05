@@ -3,7 +3,7 @@
 Coletor e API de vagas compatíveis com stack/experiência. NestJS 12 + Prisma 7 (driver adapter pg) + zod 4 + Swagger/Scalar.
 
 ## Setup
-Requer Node.js 24.9+ (os pacotes do Nest 12 são ESM-only e o app, CommonJS, os carrega via `require(esm)`; o Jest precisa de `--experimental-vm-modules`, já embutido nos scripts `test`/`test:e2e`).
+Requer Node.js 24.9+. O projeto é ESM (`"type": "module"`): imports relativos levam extensão `.js` e os testes rodam no Jest com `--experimental-vm-modules` (já embutido nos scripts `test`/`test:e2e`); nos specs, importe `jest` de `@jest/globals`.
 
 ```bash
 cp .env.example .env   # ajuste DATABASE_URL

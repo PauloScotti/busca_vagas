@@ -1,4 +1,7 @@
-import { MatchingService } from './matching.service';
+import { jest } from '@jest/globals';
+import { MatchingService } from './matching.service.js';
+
+type AsyncFn = (...args: any[]) => Promise<any>;
 
 const profile = {
   id: 'p1',
@@ -19,11 +22,11 @@ const makeJob = (id: string, title: string) => ({
 });
 
 describe('MatchingService.run', () => {
-  const createMany = jest.fn().mockResolvedValue({ count: 1 });
+  const createMany = jest.fn<AsyncFn>().mockResolvedValue({ count: 1 });
   const prisma = {
-    profile: { findFirst: jest.fn().mockResolvedValue(profile) },
+    profile: { findFirst: jest.fn<AsyncFn>().mockResolvedValue(profile) },
     job: {
-      findMany: jest.fn().mockResolvedValue([
+      findMany: jest.fn<AsyncFn>().mockResolvedValue([
         makeJob('j1', 'Vaga NestJS'),
         makeJob('j2', 'Vaga Cobol'),
       ]),
@@ -35,7 +38,7 @@ describe('MatchingService.run', () => {
 
   it('manda pro LLM só o que passa no pré-filtro e persiste ambos os grupos', async () => {
     const llm = {
-      complete: jest.fn().mockResolvedValue('[{"jobId":"j1","score":90,"reasons":["stack bate"]}]'),
+      complete: jest.fn<AsyncFn>().mockResolvedValue('[{"jobId":"j1","score":90,"reasons":["stack bate"]}]'),
     };
     const service = new MatchingService(prisma, llm);
     const result = await service.run();
@@ -55,7 +58,7 @@ describe('MatchingService.run', () => {
 
   it('ignora scores do LLM para jobIds fora do batch (proteção contra alucinação)', async () => {
     const llm = {
-      complete: jest.fn().mockResolvedValue('[{"jobId":"inventado","score":99,"reasons":[]}]'),
+      complete: jest.fn<AsyncFn>().mockResolvedValue('[{"jobId":"inventado","score":99,"reasons":[]}]'),
     };
     const service = new MatchingService(prisma, llm);
     const result = await service.run();
@@ -63,8 +66,8 @@ describe('MatchingService.run', () => {
   });
 
   it('falha com 400 se não há perfil cadastrado', async () => {
-    const noProfile = { profile: { findFirst: jest.fn().mockResolvedValue(null) } } as never;
-    const service = new MatchingService(noProfile, { complete: jest.fn() });
+    const noProfile = { profile: { findFirst: jest.fn<AsyncFn>().mockResolvedValue(null) } } as never;
+    const service = new MatchingService(noProfile, { complete: jest.fn<AsyncFn>() });
     await expect(service.run()).rejects.toThrow('Cadastre um perfil');
   });
 });

@@ -1,4 +1,4 @@
-import { JobSource, NormalizedJob } from '../domain/job.types';
+import { JobSource, NormalizedJob } from '../domain/job.types.js';
 
 export interface JobCollector {
   readonly source: JobSource;

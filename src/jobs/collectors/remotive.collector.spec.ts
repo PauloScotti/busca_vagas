@@ -1,4 +1,4 @@
-import { RemotiveCollector } from './remotive.collector';
+import { RemotiveCollector } from './remotive.collector.js';
 
 describe('RemotiveCollector.normalize', () => {
   const collector = new RemotiveCollector();

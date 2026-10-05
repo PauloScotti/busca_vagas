@@ -1,4 +1,4 @@
-import { normalizeText } from './fingerprint';
+import { normalizeText } from './fingerprint.js';
 
 const NAMED_ENTITIES: Record<string, string> = {
   amp: '&',

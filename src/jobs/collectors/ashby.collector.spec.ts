@@ -1,5 +1,5 @@
-import { AshbyCollector } from './ashby.collector';
-import { fakeConfig } from './test-helpers';
+import { AshbyCollector } from './ashby.collector.js';
+import { fakeConfig } from './test-helpers.js';
 
 const base = {
   id: '34413f8d-26bf-4bbc-8ade-eb309a0e2245',

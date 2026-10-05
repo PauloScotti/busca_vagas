@@ -1,4 +1,4 @@
-import { decodeHtmlEntities, htmlToText, isRemoteLocation, matchesAnyTerm } from './text';
+import { decodeHtmlEntities, htmlToText, isRemoteLocation, matchesAnyTerm } from './text.js';
 
 describe('decodeHtmlEntities', () => {
   it('decodifica entidades nomeadas e numéricas', () => {
