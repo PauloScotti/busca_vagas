@@ -3,7 +3,7 @@ import { Logger } from '@nestjs/common';
 import { GreenhouseCollector } from './greenhouse.collector.js';
 import { LeverCollector } from './lever.collector.js';
 import { AshbyCollector } from './ashby.collector.js';
-import { fakeConfig, jsonResponse } from './test-helpers.js';
+import { fakeConfig, jsonResponse, requestUrl } from './test-helpers.js';
 
 const ghJob = (id: number, title: string, content = '') => ({
   id,
@@ -42,19 +42,20 @@ describe('CompanyBoardCollector.collect', () => {
     );
     const jobs = await new GreenhouseCollector(fakeConfig({ GREENHOUSE_BOARDS: ['b'] })).collect(['nestjs', 'react']);
     expect(jobs.map((j) => j.externalId)).toEqual(['1', '3']);
-    expect(fetchMock).toHaveBeenCalledWith(
-      'https://boards-api.greenhouse.io/v1/boards/b/jobs?content=true',
-      expect.objectContaining({ signal: expect.any(AbortSignal) }),
-    );
+    const [url, init] = fetchMock.mock.calls[0];
+    expect(url).toBe('https://boards-api.greenhouse.io/v1/boards/b/jobs?content=true');
+    expect(init?.signal).toBeInstanceOf(AbortSignal);
   });
 
   it('isola falhas por board: status de erro, JSON inesperado e exceção de rede', async () => {
-    fetchMock.mockImplementation(async (input) => {
-      const url = String(input);
-      if (url.includes('/down')) return jsonResponse({ ok: false }, 404);
-      if (url.includes('/weird')) return jsonResponse({ not: 'an array' });
-      if (url.includes('/boom')) throw new Error('ECONNRESET');
-      return jsonResponse([{ id: 'ok', text: 'Node Dev', hostedUrl: 'https://jobs.lever.co/good/ok' }]);
+    fetchMock.mockImplementation((input) => {
+      const url = requestUrl(input);
+      if (url.includes('/down')) return Promise.resolve(jsonResponse({ ok: false }, 404));
+      if (url.includes('/weird')) return Promise.resolve(jsonResponse({ not: 'an array' }));
+      if (url.includes('/boom')) return Promise.reject(new Error('ECONNRESET'));
+      return Promise.resolve(
+        jsonResponse([{ id: 'ok', text: 'Node Dev', hostedUrl: 'https://jobs.lever.co/good/ok' }]),
+      );
     });
     const collector = new LeverCollector(fakeConfig({ LEVER_COMPANIES: ['down', 'weird', 'boom', 'good'] }));
     const jobs = await collector.collect(['node']);

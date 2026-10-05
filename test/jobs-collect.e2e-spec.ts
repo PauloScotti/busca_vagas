@@ -8,6 +8,7 @@ import { validateEnv } from '../src/config/env.js';
 import { JobsModule } from '../src/jobs/jobs.module.js';
 import { PrismaModule } from '../src/prisma/prisma.module.js';
 import { PrismaService } from '../src/prisma/prisma.service.js';
+import { requestUrl } from '../src/jobs/collectors/test-helpers.js';
 
 type StoredJob = Record<string, unknown> & { source: string; externalId: string };
 
@@ -15,7 +16,7 @@ type StoredJob = Record<string, unknown> & { source: string; externalId: string 
 class InMemoryPrisma {
   readonly jobs = new Map<string, StoredJob>();
   job = {
-    upsert: async (args: {
+    upsert: (args: {
       where: { source_externalId: { source: string; externalId: string } };
       create: StoredJob;
       update: Partial<StoredJob>;
@@ -25,7 +26,7 @@ class InMemoryPrisma {
       const current = this.jobs.get(key);
       const next = current ? { ...current, ...args.update } : args.create;
       this.jobs.set(key, next);
-      return next;
+      return Promise.resolve(next);
     },
   };
 }
@@ -107,7 +108,7 @@ describe('POST /jobs/collect com Greenhouse/Lever/Ashby (e2e)', () => {
     });
 
     jest.spyOn(global, 'fetch').mockImplementation(async (input, init) => {
-      const url = String(input);
+      const url = requestUrl(input);
       if (url.startsWith(baseUrl)) return realFetch(input, init);
       atsCalls.push(url);
       if (url in ATS_RESPONSES) return ATS_RESPONSES[url]();

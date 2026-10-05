@@ -5,6 +5,11 @@ export function fakeConfig(values: Partial<Env>): ConfigService<Env, true> {
   return { getOrThrow: (key: keyof Env) => values[key] } as unknown as ConfigService<Env, true>;
 }
 
+export function requestUrl(input: string | URL | Request): string {
+  if (typeof input === 'string') return input;
+  return input instanceof URL ? input.href : input.url;
+}
+
 export function jsonResponse(body: unknown, status = 200): Response {
   return new Response(JSON.stringify(body), { status, headers: { 'content-type': 'application/json' } });
 }

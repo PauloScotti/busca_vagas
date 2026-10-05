@@ -2,8 +2,6 @@ import { jest } from '@jest/globals';
 import { DigestService } from './digest.service.js';
 import { escapeHtml } from './telegram.service.js';
 
-type AsyncFn = (...args: any[]) => Promise<any>;
-
 const makeMatch = (id: string, score: number, over: Record<string, unknown> = {}) => ({
   id,
   score,
@@ -24,10 +22,12 @@ describe('escapeHtml', () => {
   });
 });
 
+type UpdateManyArgs = { where: { id: { in: string[] } } };
+
 describe('DigestService', () => {
-  const findMany = jest.fn<AsyncFn>();
-  const updateMany = jest.fn<AsyncFn>().mockResolvedValue({ count: 1 });
-  const send = jest.fn<AsyncFn>().mockResolvedValue(undefined);
+  const findMany = jest.fn<(args: unknown) => Promise<unknown[]>>();
+  const updateMany = jest.fn<(args: UpdateManyArgs) => Promise<{ count: number }>>().mockResolvedValue({ count: 1 });
+  const send = jest.fn<(text: string) => Promise<void>>().mockResolvedValue(undefined);
   const prisma = { match: { findMany, updateMany } } as never;
   const telegram = { send } as never;
   const config = {

@@ -2,7 +2,7 @@ import { jest } from '@jest/globals';
 import { JobsService } from './jobs.service.js';
 import { NormalizedJob } from './domain/job.types.js';
 
-type AsyncFn = (...args: any[]) => Promise<any>;
+type UpsertArgs = { create: { fingerprint: string }; where: unknown };
 
 function makeJob(overrides: Partial<NormalizedJob> = {}): NormalizedJob {
   return {
@@ -23,7 +23,7 @@ function makeJob(overrides: Partial<NormalizedJob> = {}): NormalizedJob {
 }
 
 describe('JobsService', () => {
-  const upsert = jest.fn<AsyncFn>().mockResolvedValue({});
+  const upsert = jest.fn<(args: UpsertArgs) => Promise<unknown>>().mockResolvedValue({});
   const prisma = { job: { upsert } } as never;
   const service = new JobsService(prisma, []);
 

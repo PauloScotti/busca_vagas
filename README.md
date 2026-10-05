@@ -52,4 +52,5 @@ Crie um bot com o @BotFather, pegue o token e o chat_id (mande uma mensagem ao b
 ```bash
 npm test           # unitários (src/**/*.spec.ts)
 npm run test:e2e   # e2e (test/*.e2e-spec.ts) — sobe o JobsModule com Prisma em memória e APIs externas simuladas
+npm run lint       # ESLint 10 + typescript-eslint (regras com checagem de tipos) em src/ e test/
 ```
