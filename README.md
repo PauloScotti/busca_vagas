@@ -10,11 +10,21 @@ npm run prisma:migrate
 npm run start:dev
 ```
 
-- Frontend: `GET /` (HTML/CSS/JS simples em `public/`, sem build — abas de Vagas, Matches, Perfil e Digest)
 - Swagger: `GET /docs` · Scalar: `GET /reference`
 - Coleta manual: `POST /jobs/collect` (body opcional `{ "searchTerms": ["nestjs"] }`)
 - Listagem: `GET /jobs?q=node&remote=true&page=1`
 - Pipeline diário via `PIPELINE_CRON` (padrão 7h): coleta → matching → digest no Telegram
+
+## Frontend (`web/`)
+Vite 8 + React 19 + TypeScript 7, com TanStack Query 5 (dados) e React Router 8 (abas Vagas, Matches, Perfil e Digest).
+
+```bash
+cd web
+npm install
+npm run dev   # http://localhost:5173
+```
+
+Em dev, o Vite repassa `/api/*` para a API em `http://localhost:3000` (mude com `API_URL` em `web/.env.local`), então não precisa de CORS. Para apontar o build para outra URL, defina `VITE_API_URL`.
 
 ## Fontes
 - Remotive (API pública oficial)

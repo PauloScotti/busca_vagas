@@ -1,15 +1,11 @@
-import { join } from 'node:path';
 import { NestFactory } from '@nestjs/core';
-import { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { cleanupOpenApiDoc } from 'nestjs-zod';
 import { apiReference } from '@scalar/nestjs-api-reference';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create<NestExpressApplication>(AppModule);
-  app.enableCors();
-  app.useStaticAssets(join(__dirname, '..', 'public'));
+  const app = await NestFactory.create(AppModule);
 
   const config = new DocumentBuilder()
     .setTitle('Busca Vagas API')
